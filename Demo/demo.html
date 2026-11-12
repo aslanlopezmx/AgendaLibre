@@ -1,0 +1,326 @@
+<!doctype html>
+<html
+  lang="es"
+  data-estilo="boutique"
+  data-modo="claro"
+  data-card="framed"
+  data-controles="arriba"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Negocio | Reserva de Servicios</title>
+    <link rel="stylesheet" href="demo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container header-container">
+        <div class="header-left">
+          <a href="../index.html" class="back-link">← Volver</a>
+          <span class="logo-brand" id="logo-brand">Mi Negocio</span>
+        </div>
+        <nav class="header-nav">
+          <button
+            class="btn-header-cta"
+            onclick="
+              document
+                .getElementById('catalogo')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Reservar Cita
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <span class="hero-badge">Tu eslogan aquí</span>
+        <h1>Aquí va la frase de tu elección</h1>
+        <p>Cuéntale a tus clientes qué te hace especial en una o dos líneas.</p>
+      </div>
+    </section>
+
+    <!-- Main Application -->
+    <main id="main-app" class="container main-container">
+      <!-- Controls Row -->
+      <div class="controls-bar">
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Buscar masajes o tratamientos..."
+          />
+        </div>
+
+        <div class="filter-dropdown-wrapper">
+          <button class="btn-filter" onclick="toggleFilterMenu(event)">
+            <span>Filtrar y Ordenar</span>
+            <span>↓</span>
+          </button>
+          <div id="filter-dropdown" class="filter-dropdown-menu">
+            <div class="filter-section-title">Ordenar por Precio</div>
+            <div
+              class="filter-option"
+              onclick="aplicarOrdenamiento('menor-mayor')"
+            >
+              Precio: Menor a Mayor
+            </div>
+            <div
+              class="filter-option"
+              onclick="aplicarOrdenamiento('mayor-menor')"
+            >
+              Precio: Mayor a Menor
+            </div>
+            <div class="filter-divider"></div>
+            <div class="filter-section-title">Filtrar por Categoría</div>
+            <div id="dynamic-categories-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid de Catálogo -->
+      <div id="catalogo" class="grid-productos"></div>
+    </main>
+
+    <!-- Botón Flotante para cambiar la personalización de la demo -->
+    <button
+      class="btn-floating-customizer"
+      onclick="toggleCustomizer()"
+      title="Cambiar el estilo de la página"
+    >
+      🎨 Personalizar
+    </button>
+
+    <!-- Botón fijo de WhatsApp: justo arriba del botón Personalizar -->
+    <svg
+      width="0"
+      height="0"
+      style="position: absolute"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <symbol id="wa-ico" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </symbol>
+    </svg>
+    <a
+      class="btn-wa-fijo"
+      id="btn-wa-fijo"
+      href="https://wa.me/5213312892022?text=Hola%2C%20estuve%20probando%20la%20demo%20de%20GlowControl%20y%20me%20interesa%20tener%20mi%20propia%20p%C3%A1gina%20de%20citas."
+      target="_blank"
+      rel="noopener"
+      aria-label="Escríbenos por WhatsApp"
+      title="Escríbenos por WhatsApp"
+    >
+      <svg class="wa-ico" aria-hidden="true"><use href="#wa-ico" /></svg>
+    </a>
+
+    <!-- Panel lateral: Personalización -->
+    <aside
+      id="customizer-sidebar"
+      class="customizer-sidebar"
+      aria-label="Selector de estilos"
+    >
+      <div class="customizer-header">
+        <div>
+          <h3>Personalizar Estilo</h3>
+          <p class="customizer-sub">Ajusta el tema y la tarjeta de la página</p>
+        </div>
+        <button
+          class="close-customizer"
+          onclick="toggleCustomizer()"
+          aria-label="Cerrar panel"
+        >
+          ✕
+        </button>
+      </div>
+      <div class="customizer-body">
+        <!-- Cada opción es una fila; al hacer clic se expande -->
+        <div class="customizer-section">
+          <button
+            type="button"
+            class="acc-header"
+            aria-expanded="false"
+            aria-controls="acc-servicios"
+            onclick="alternarSeccion(this)"
+          >
+            <span class="acc-icono">💼</span
+            ><span class="acc-texto"
+              ><span class="acc-largo">Servicios de tu negocio</span
+              ><span class="acc-corto">Servicios</span></span
+            ><span class="acc-chevron">▾</span>
+          </button>
+          <div class="acc-content" id="acc-servicios">
+            <p class="customizer-hint">
+              Elige las categorías que ofreces. El catálogo y el filtro solo
+              mostrarán estas.
+            </p>
+            <div id="categorias-lista" class="categorias-grid"></div>
+            <button
+              type="button"
+              class="btn-cat-todas"
+              onclick="seleccionarTodasLasCategorias()"
+            >
+              Seleccionar todas
+            </button>
+          </div>
+        </div>
+
+        <div class="customizer-section" id="seccion-profesionales" hidden>
+          <button
+            type="button"
+            class="acc-header"
+            aria-expanded="false"
+            aria-controls="acc-personas"
+            onclick="alternarSeccion(this)"
+          >
+            <span class="acc-icono">👥</span
+            ><span class="acc-texto"
+              ><span class="acc-largo">Personas que atienden</span
+              ><span class="acc-corto">Personas</span></span
+            ><span class="acc-chevron">▾</span>
+          </button>
+          <div class="acc-content" id="acc-personas">
+            <p class="customizer-hint">
+              Con 1 persona la página no pregunta quién atiende. Con 2 o más, el
+              cliente elige con quién agendar.
+            </p>
+            <div id="profesionales-lista" class="profesionales-grid"></div>
+            <p
+              id="profesionales-info"
+              class="customizer-hint profesionales-info"
+            ></p>
+          </div>
+        </div>
+
+        <div class="customizer-section">
+          <button
+            type="button"
+            class="acc-header"
+            aria-expanded="false"
+            aria-controls="acc-tema"
+            onclick="alternarSeccion(this)"
+          >
+            <span class="acc-icono">🎨</span
+            ><span class="acc-texto"
+              ><span class="acc-largo">Color y modo</span
+              ><span class="acc-corto">Color</span></span
+            ><span class="acc-chevron">▾</span>
+          </button>
+          <div class="acc-content" id="acc-tema">
+            <div
+              class="modo-toggle"
+              role="group"
+              aria-label="Modo claro u oscuro"
+            >
+              <button
+                type="button"
+                class="btn-modo-opt"
+                data-modo="claro"
+                onclick="aplicarModo('claro')"
+              >
+                ☀️ Claro
+              </button>
+              <button
+                type="button"
+                class="btn-modo-opt"
+                data-modo="oscuro"
+                onclick="aplicarModo('oscuro')"
+              >
+                🌙 Oscuro
+              </button>
+            </div>
+            <div id="temas-lista" class="estilos-grid-min"></div>
+          </div>
+        </div>
+
+        <div class="customizer-section">
+          <button
+            type="button"
+            class="acc-header"
+            aria-expanded="false"
+            aria-controls="acc-tarjeta"
+            onclick="alternarSeccion(this)"
+          >
+            <span class="acc-icono">🃏</span
+            ><span class="acc-texto"
+              ><span class="acc-largo">Diseño de Tarjeta</span
+              ><span class="acc-corto">Tarjeta</span></span
+            ><span class="acc-chevron">▾</span>
+          </button>
+          <div class="acc-content" id="acc-tarjeta">
+            <div id="cards-lista" class="estilos-grid-min"></div>
+          </div>
+        </div>
+
+        <!-- Solo en celular: cierra la barra inferior -->
+        <button
+          type="button"
+          class="dock-cerrar"
+          onclick="toggleCustomizer()"
+          aria-label="Cerrar personalización"
+        >
+          <span class="acc-icono">✕</span>
+          <span class="acc-corto">Cerrar</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-container">
+        <p>
+          &copy; 2026 <span id="footer-nombre">Mi Negocio</span>. Todos los
+          derechos reservados.
+        </p>
+        <div class="footer-links">
+          <button class="footer-btn" onclick="abrirPoliticas()">
+            Políticas de Privacidad
+          </button>
+          <span>•</span>
+          <button class="footer-btn" onclick="abrirTerminos()">
+            Términos y Condiciones
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="booking-title">Agendar cita</h2>
+          <button class="close-modal" onclick="cerrarAgenda()">✕</button>
+        </div>
+        <div id="booking-body" class="detail-body-content"></div>
+      </div>
+    </div>
+
+    <!-- Legal Modal -->
+    <div id="details-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="detail-title">Información</h2>
+          <button class="close-modal" onclick="cerrarDetalles()">✕</button>
+        </div>
+        <div id="detail-body" class="detail-body-content"></div>
+      </div>
+    </div>
+
+    <script src="demo.js"></script>
+  </body>
+</html>

@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlowControl | Software de citas para spas y salones</title>
+    <meta
+      name="description"
+      content="Reservas en línea para spas, salones y barberías. Catálogo, agenda con disponibilidad real y confirmación por correo. Administra desde Google Sheets."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="GlowControl | Software de citas para spas y salones"
+    />
+    <meta
+      property="og:description"
+      content="Tu página de servicios y citas, lista para recibir clientes. Pruébala en vivo con la demo interactiva."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "GlowControl",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Reservas en línea y catálogo de servicios para negocios de belleza y bienestar, administrado desde Google Sheets.",
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "MXN",
+          "lowPrice": "1499",
+          "highPrice": "2999",
+          "offerCount": "2"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Es difícil de configurar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Administras todo desde Google Sheets: servicios, precios, descuentos y profesionales. Los cambios se reflejan en tu página."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Se va a ver igual que otras páginas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Combinas 12 paletas de color en modo claro u oscuro con 12 diseños de tarjeta, además de tu nombre y tus servicios."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa si alguien aparta una cita y no la confirma?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El horario se aparta unos minutos. Si el cliente no lo confirma desde su correo, se libera solo y otra persona puede tomarlo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo atender yo solo o con equipo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ambos. Si atiendes solo, la página no pregunta con quién agendar. Si son dos o más, el cliente elige o deja 'cualquiera disponible'."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mis clientes necesitan descargar una app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Reservan desde el navegador de su celular o computadora."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+    <!-- Icono de WhatsApp (se reutiliza con <use href="#wa-ico">) -->
+    <svg
+      width="0"
+      height="0"
+      style="position: absolute"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <symbol id="wa-ico" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- 1. Navbar sticky -->
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a href="#top" class="logo" aria-label="GlowControl, inicio">
+          <span class="logo-mark" aria-hidden="true">G</span>
+          <span class="logo-text">GlowControl</span>
+        </a>
+        <nav class="nav-links" aria-label="Principal">
+          <a href="#funciones">Funciones</a>
+          <a href="#personalizar">Personalizar</a>
+          <a href="#precios">Precios</a>
+          <a href="#faq">Preguntas</a>
+        </nav>
+        <a href="Demo/demo.html" data-demo class="btn btn-ink btn-sm"
+          >Probar la demo</a
+        >
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- 2. Hero -->
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="badge"
+              >Reservas en línea para spas, salones y barberías</span
+            >
+            <h1>
+              Deja de responder <span class="hl">“¿qué horas tienes?”</span>
+            </h1>
+            <p class="lead">
+              Tus clientes eligen día y hora desde su celular y tú recuperas
+              horas cada semana. Tu página de servicios y citas, lista para
+              recibir clientes.
+            </p>
+            <div class="hero-actions">
+              <a href="Demo/demo.html" data-demo class="btn btn-primary btn-lg"
+                >Probar la demo en vivo <span aria-hidden="true">→</span></a
+              >
+              <a href="#como-reservan" class="btn btn-ghost btn-lg"
+                >Ver cómo reserva un cliente</a
+              >
+            </div>
+            <p class="microcopy">
+              <span aria-hidden="true">✓</span> Sin registros ni tarjeta
+              <span class="dot" aria-hidden="true">·</span>
+              <span aria-hidden="true">✓</span> Prueba los 12 estilos en vivo
+            </p>
+            <p class="hero-wa">
+              ¿Prefieres hablar con una persona?
+              <a
+                href="https://wa.me/5213312892022"
+                data-wa
+                data-msg="Hola, vi GlowControl y tengo una duda antes de probar la demo."
+                >Escríbenos por WhatsApp</a
+              >
+            </p>
+          </div>
+
+          <div class="hero-visual" aria-hidden="false">
+            <div class="chip chip-ok chip-a">
+              <span class="chip-ico">✓</span> Cita confirmada
+            </div>
+            <div class="chip chip-pct chip-b">-20%</div>
+
+            <div class="phone">
+              <div class="phone-notch" aria-hidden="true"></div>
+              <div
+                class="phone-screen themed"
+                id="hero-themed"
+                data-card="framed"
+                role="img"
+                aria-label="Celular mostrando el catálogo de servicios de un spa con precio y botón Agendar cita"
+              >
+                <div class="ph-top">
+                  <strong class="ph-brand">Mi Spa</strong>
+                  <span class="ph-pill">Reservar cita</span>
+                </div>
+                <div class="ph-search">Buscar masajes o tratamientos…</div>
+
+                <article class="svc">
+                  <div class="svc-img">
+                    <span class="svc-emoji">💆</span>
+                    <span class="svc-cat">Masajes</span>
+                  </div>
+                  <div class="svc-body">
+                    <h4>Masaje relajante</h4>
+                    <p>Presión suave a moderada para soltar tensión.</p>
+                    <span class="svc-dur">⏱ 60 min</span>
+                  </div>
+                  <div class="svc-foot">
+                    <span class="svc-price">
+                      <small class="svc-old"><s>$800</s></small>
+                      <b>$640 MXN</b>
+                    </span>
+                    <span class="svc-btn">Agendar cita</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. El problema -->
+      <section class="section problema" id="problema">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">El problema</span>
+            <h2>Tu agenda no debería vivir en el chat</h2>
+            <p>
+              Preguntar horarios, confirmar, reprogramar y acordarte de quién
+              viene cuándo te quita horas que podrías dedicar a tus clientes. Y
+              aun así, hay huecos que se quedan apartados sin que nadie llegue.
+            </p>
+          </div>
+
+          <div class="vs">
+            <div class="vs-col vs-before reveal">
+              <span class="vs-tag vs-tag-bad">Antes</span>
+              <div
+                class="chat"
+                aria-label="Ejemplo de conversación de WhatsApp para agendar"
+              >
+                <div class="b b-in">Hola, ¿qué horas tienes el jueves?</div>
+                <div class="b b-out">Déjame ver… ¿en la mañana o tarde?</div>
+                <div class="b b-in">En la tarde, ¿a las 5?</div>
+                <div class="b b-out">A las 5 ya no, ¿a las 6?</div>
+                <div class="b b-in">Mmm, mejor el viernes 😅</div>
+              </div>
+              <p class="vs-note">Seis mensajes después, todavía no hay cita.</p>
+            </div>
+
+            <div class="vs-arrow" aria-hidden="true">→</div>
+
+            <div class="vs-col vs-after reveal">
+              <span class="vs-tag vs-tag-good">Con GlowControl</span>
+              <div class="done-card">
+                <div class="done-ico">✓</div>
+                <h3>Cita confirmada</h3>
+                <p>Masaje relajante · Jueves 6:00 PM</p>
+                <ol class="mini-steps">
+                  <li>Eligió servicio</li>
+                  <li>Escogió un horario libre</li>
+                  <li>Confirmó por correo</li>
+                </ol>
+              </div>
+              <p class="vs-note">Tú no escribiste ni un mensaje.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Barra de beneficios -->
+      <section class="benefits" aria-label="Beneficios principales">
+        <div class="container benefits-grid">
+          <div class="benefit reveal">
+            <span class="benefit-ico" aria-hidden="true">🗓️</span>
+            <div>
+              <strong>Menos mensajes</strong
+              ><span>El cliente agenda solo.</span>
+            </div>
+          </div>
+          <div class="benefit reveal">
+            <span class="benefit-ico" aria-hidden="true">✉️</span>
+            <div>
+              <strong>Citas confirmadas</strong
+              ><span>Apartan y confirman por correo.</span>
+            </div>
+          </div>
+          <div class="benefit reveal">
+            <span class="benefit-ico" aria-hidden="true">📊</span>
+            <div>
+              <strong>Control en Google Sheets</strong
+              ><span>Lo que ya sabes usar.</span>
+            </div>
+          </div>
+          <div class="benefit reveal">
+            <span class="benefit-ico" aria-hidden="true">🎨</span>
+            <div>
+              <strong>Tu marca, tu estilo</strong
+              ><span>12 paletas y 12 diseños.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Funcionalidades -->
+      <section class="section" id="funciones">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Funciones</span>
+            <h2>Todo lo que tu negocio necesita para recibir citas</h2>
+            <p>
+              Lo que ves funcionando en la demo es lo que tu negocio tendría.
+            </p>
+          </div>
+
+          <div class="bento">
+            <article class="bento-card bento-lg reveal">
+              <span class="card-icon" aria-hidden="true">🗓️</span>
+              <h3>Solo horarios realmente disponibles</h3>
+              <p>
+                Calendario según la duración de cada servicio. Sin cruces y sin
+                mensajes de ida y vuelta.
+              </p>
+              <div class="mini-cal" aria-hidden="true">
+                <div class="mc-head">
+                  <span>‹</span><b>noviembre 2026</b><span>›</span>
+                </div>
+                <div class="mc-week">
+                  <i>D</i><i>L</i><i>M</i><i>M</i><i>J</i><i>V</i><i>S</i>
+                </div>
+                <div class="mc-grid">
+                  <i></i><i></i><i class="off">1</i><i class="on">2</i
+                  ><i class="on">3</i><i class="on">4</i><i class="on">5</i>
+                  <i class="on">6</i><i class="off">7</i><i class="on">8</i
+                  ><i class="on sel">9</i><i class="on">10</i
+                  ><i class="on">11</i><i class="on">12</i>
+                </div>
+                <div class="mc-slots">
+                  <span>10:00 AM</span><span class="sel">11:30 AM</span
+                  ><span>4:00 PM</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="bento-card reveal">
+              <span class="card-icon" aria-hidden="true">💼</span>
+              <h3>Un escaparate para tus servicios</h3>
+              <p>
+                Fotos, duración y precio, con buscador, filtros y orden por
+                precio.
+              </p>
+            </article>
+
+            <article class="bento-card reveal">
+              <span class="card-icon" aria-hidden="true">👥</span>
+              <h3>Con quién quiera tu cliente</h3>
+              <p>
+                Si atienden varias personas, el cliente elige o deja “cualquiera
+                disponible”. Si atiendes solo tú, no se pregunta.
+              </p>
+            </article>
+
+            <article class="bento-card reveal">
+              <span class="card-icon" aria-hidden="true">🏷️</span>
+              <h3>Promociones que se ven</h3>
+              <p>
+                Precio normal tachado junto al precio con descuento, en monto o
+                en porcentaje.
+              </p>
+            </article>
+
+            <article class="bento-card reveal">
+              <span class="card-icon" aria-hidden="true">✉️</span>
+              <h3>Apartan, confirman o se libera</h3>
+              <p>
+                El horario se aparta unos minutos. Si no se confirma por correo,
+                vuelve a estar disponible.
+              </p>
+              <div class="timeline" aria-hidden="true">
+                <span class="tl tl-warn">Apartada</span>
+                <span class="tl-line"></span>
+                <span class="tl tl-ok">Confirmada</span>
+                <span class="tl-or">o</span>
+                <span class="tl tl-free">Se libera</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Tu hoja, tu página -->
+          <div class="sheet-block reveal" id="sheet-block">
+            <div class="sheet-copy">
+              <span class="eyebrow">Administra desde Google Sheets</span>
+              <h3>Cambias una celda. Tu página se actualiza.</h3>
+              <p>
+                Servicios, precios, descuentos y profesionales se editan en una
+                hoja de Google. Si sabes usar Excel, sabes usar GlowControl.
+              </p>
+            </div>
+
+            <div class="sheet-demo">
+              <div
+                class="sheet"
+                role="img"
+                aria-label="Hoja de Google con servicios y precios que se convierte en tarjetas de la página de citas"
+              >
+                <div class="sheet-bar">
+                  <span></span><span></span><span></span><em>servicios</em>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>NOMBRE</th>
+                      <th>PRECIO</th>
+                      <th>DESCUENTO</th>
+                      <th>DURACION_MIN</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="row-live">
+                      <td>Masaje relajante</td>
+                      <td>650</td>
+                      <td class="cell-edit" id="cell-desc"></td>
+                      <td>60</td>
+                    </tr>
+                    <tr>
+                      <td>Facial hidratante</td>
+                      <td>900</td>
+                      <td></td>
+                      <td>45</td>
+                    </tr>
+                    <tr>
+                      <td>Manicure gel</td>
+                      <td>450</td>
+                      <td></td>
+                      <td>60</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <span class="sheet-arrow" aria-hidden="true">→</span>
+
+              <div
+                class="themed mini-themed"
+                id="sheet-themed"
+                data-card="framed"
+                aria-hidden="true"
+              >
+                <article class="svc">
+                  <div class="svc-img">
+                    <span class="svc-emoji">💆</span
+                    ><span class="svc-cat">Masajes</span>
+                  </div>
+                  <div class="svc-body">
+                    <h4>Masaje relajante</h4>
+                    <span class="svc-dur">⏱ 60 min</span>
+                  </div>
+                  <div class="svc-foot">
+                    <span class="svc-price" id="sheet-price"
+                      ><b>$650 MXN</b></span
+                    >
+                    <span class="svc-btn">Agendar cita</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Personalizador -->
+      <section class="section pz" id="personalizar">
+        <div class="container">
+          <div class="pz-box reveal">
+            <div class="pz-head">
+              <span class="eyebrow eyebrow-light">Personalizador</span>
+              <h2>Hazla tuya en segundos</h2>
+              <p>
+                Elige entre 12 colores en modo claro u oscuro y 12 diseños de
+                tarjeta. Mira cómo se vería tu negocio antes de decidir.
+              </p>
+            </div>
+
+            <div class="pz-grid">
+              <div class="pz-controls">
+                <div class="pz-group">
+                  <div class="pz-label-row">
+                    <span class="pz-label" id="lbl-color">Color</span>
+                    <div
+                      class="pz-mode"
+                      role="group"
+                      aria-label="Modo claro u oscuro"
+                    >
+                      <button
+                        type="button"
+                        data-mode="claro"
+                        aria-pressed="true"
+                      >
+                        ☀️ Claro
+                      </button>
+                      <button
+                        type="button"
+                        data-mode="oscuro"
+                        aria-pressed="false"
+                      >
+                        🌙 Oscuro
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="swatches"
+                    id="swatches"
+                    role="group"
+                    aria-labelledby="lbl-color"
+                  ></div>
+                  <p
+                    class="pz-current"
+                    id="pz-theme-name"
+                    aria-live="polite"
+                  ></p>
+                </div>
+
+                <div class="pz-group">
+                  <span class="pz-label" id="lbl-card">Diseño de tarjeta</span>
+                  <div
+                    class="card-chips"
+                    id="card-chips"
+                    role="group"
+                    aria-labelledby="lbl-card"
+                  ></div>
+                </div>
+
+                <button type="button" class="btn btn-soft" id="pz-random">
+                  <span aria-hidden="true">🎲</span> Sorpréndeme
+                </button>
+              </div>
+
+              <div class="pz-stage">
+                <div
+                  class="themed pz-preview"
+                  id="pz-preview"
+                  data-card="framed"
+                  aria-live="polite"
+                >
+                  <div class="ph-top">
+                    <strong class="ph-brand">Mi Negocio</strong>
+                    <span class="ph-pill">Reservar cita</span>
+                  </div>
+                  <div class="pz-cards">
+                    <article class="svc">
+                      <div class="svc-img">
+                        <span class="svc-emoji">💆</span
+                        ><span class="svc-cat">Masajes</span>
+                      </div>
+                      <div class="svc-body">
+                        <h4>Masaje relajante</h4>
+                        <p>Presión suave a moderada para soltar tensión.</p>
+                        <span class="svc-dur">⏱ 60 min</span>
+                      </div>
+                      <div class="svc-foot">
+                        <span class="svc-price"
+                          ><small class="svc-old"><s>$800</s></small
+                          ><b>$640 MXN</b></span
+                        >
+                        <span class="svc-btn">Agendar cita</span>
+                      </div>
+                    </article>
+                    <article class="svc svc-second">
+                      <div class="svc-img">
+                        <span class="svc-emoji">✨</span
+                        ><span class="svc-cat">Faciales</span>
+                      </div>
+                      <div class="svc-body">
+                        <h4>Facial hidratante</h4>
+                        <p>Limpieza profunda y mascarilla.</p>
+                        <span class="svc-dur">⏱ 45 min</span>
+                      </div>
+                      <div class="svc-foot">
+                        <span class="svc-price"><b>$900 MXN</b></span>
+                        <span class="svc-btn">Agendar cita</span>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pz-cta">
+              <div class="pz-cta-row">
+                <a href="Demo/demo.html" data-demo class="btn btn-white btn-lg"
+                  >Personalizar con mis servicios
+                  <span aria-hidden="true">→</span></a
+                >
+                <a
+                  href="https://wa.me/5213312892022"
+                  data-wa
+                  data-msg="Hola, estuve personalizando la demo de GlowControl y quiero mi página de citas."
+                  class="btn btn-wa btn-lg"
+                  ><svg class="wa-ico" aria-hidden="true">
+                    <use href="#wa-ico" />
+                  </svg>
+                  Pedir mi página por WhatsApp</a
+                >
+              </div>
+              <p class="microcopy microcopy-light">
+                Los cambios se ven al instante · Nada se guarda ni se cobra
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Flujo de 3 pasos -->
+      <section class="section" id="como-reservan">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Para tus clientes</span>
+            <h2>Así reservan tus clientes</h2>
+            <p>Tres pasos, desde cualquier dispositivo y sin descargar nada.</p>
+          </div>
+
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step-num">1</span>
+              <div class="step-shot" aria-hidden="true">
+                <div class="ss-bar"></div>
+                <div class="ss-card"><i></i><b></b><u></u></div>
+                <div class="ss-card"><i></i><b></b><u></u></div>
+              </div>
+              <h3>Elige un servicio</h3>
+              <p>Busca o filtra el catálogo y toca “Agendar cita”.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step-num">2</span>
+              <div class="step-shot" aria-hidden="true">
+                <div class="mini-cal mini-cal-s">
+                  <div class="mc-grid">
+                    <i class="on">8</i><i class="on">9</i
+                    ><i class="on sel">10</i><i class="on">11</i
+                    ><i class="off">12</i><i class="on">13</i
+                    ><i class="on">14</i>
+                  </div>
+                  <div class="mc-slots">
+                    <span>10:00</span><span class="sel">11:30</span
+                    ><span>16:00</span>
+                  </div>
+                </div>
+              </div>
+              <h3>Escoge día y hora</h3>
+              <p>Ve solo los horarios realmente disponibles.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step-num">3</span>
+              <div class="step-shot" aria-hidden="true">
+                <div class="ss-mail">
+                  <b>✉️ Confirma tu cita</b>
+                  <span
+                    >Presiona el botón antes de que se libere el horario.</span
+                  >
+                  <em>Confirmar</em>
+                </div>
+              </div>
+              <h3>Confirma por correo</h3>
+              <p>Deja sus datos y confirma desde el mensaje que recibe.</p>
+            </li>
+          </ol>
+
+          <div class="center reveal">
+            <a href="Demo/demo.html" data-demo class="btn btn-primary btn-lg"
+              >Haz una reserva de prueba</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. Comparativa y Precios -->
+      <section class="section pricing-section" id="precios">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Precios</span>
+            <h2>Un solo pago. Sin mensualidades ni comisiones.</h2>
+            <p>
+              Elige la versión de GlowControl ideal para tu negocio y automatiza
+              tus agendas comparando con otras opciones del mercado.
+            </p>
+          </div>
+
+          <div class="compare-wrap reveal">
+            <h3 class="compare-title">
+              Compara GlowControl vs Otras plataformas
+            </h3>
+            <table class="compare-table">
+              <caption class="sr-only">
+                Comparativa entre otras plataformas y los planes de GlowControl
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Característica</th>
+                  <th scope="col" class="them">Otras plataformas</th>
+                  <th scope="col" class="us">Plan Independiente</th>
+                  <th scope="col" class="us">Plan Negocio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Pago inicial / Entrada</th>
+                  <td class="them">Plan de arranque y renta</td>
+                  <td class="us">$1,499 MXN (Único)</td>
+                  <td class="us">$2,999 MXN (Único)</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mensualidad</th>
+                  <td class="them">Sí, cobro recurrente</td>
+                  <td class="us">Cero mensualidades</td>
+                  <td class="us">Cero mensualidades</td>
+                </tr>
+                <tr>
+                  <th scope="row">Comisión por cita</th>
+                  <td class="them">Porcentaje o cuota por reserva</td>
+                  <td class="us">0%</td>
+                  <td class="us">0%</td>
+                </tr>
+                <tr>
+                  <th scope="row">Capacidad de agenda</th>
+                  <td class="them">Sube de precio por empleado</td>
+                  <td class="us">1 profesional / agenda principal</td>
+                  <td class="us">Hasta 5 profesionales independientes</td>
+                </tr>
+                <tr>
+                  <th scope="row">Control y administración</th>
+                  <td class="them">Plataforma cerrada de terceros</td>
+                  <td class="us">Google Sheets / Google Calendar</td>
+                  <td class="us">Google Sheets / Google Calendar</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="price-note">
+              Las condiciones de otras plataformas varían según el plan
+              contratado.
+            </p>
+          </div>
+
+          <div
+            class="pricing-wrap reveal"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 2rem;
+              max-width: 900px;
+              margin: 0 auto;
+            "
+          >
+            <!-- PLAN INDEPENDIENTE -->
+            <div class="price-card">
+              <h3 class="price-title">Independiente</h3>
+              <div class="price-block">
+                <span class="price-now">$1,499 MXN</span>
+              </div>
+              <div class="price-badges">
+                <span class="badge-offer">Pago Único</span>
+              </div>
+
+              <ul class="includes">
+                <li>✅ 1 profesional / agenda principal</li>
+                <li>✅ Sincronización completa con Google Calendar</li>
+                <li>✅ Panel web optimizado para celular y PC</li>
+                <li>✅ Instalación y configuración inicial incluida</li>
+                <li>✅ Cero comisiones por cita agendada</li>
+              </ul>
+
+              <a
+                href="https://wa.me/5213312892022?text=Hola%2C%20quiero%20adquirir%20GlowControl%20Plan%20Independiente."
+                target="_blank"
+                rel="noopener"
+                class="btn btn-wa btn-lg btn-block"
+                data-cta="precio-ind"
+              >
+                <svg class="wa-ico" aria-hidden="true">
+                  <use href="#wa-ico" />
+                </svg>
+                Elegir Independiente
+              </a>
+              <p class="price-note">
+                Sin compromiso · Resolvemos tus dudas por WhatsApp.
+              </p>
+            </div>
+
+            <!-- PLAN NEGOCIO -->
+            <div
+              class="price-card"
+              style="border-color: var(--action, #0ea5e9)"
+            >
+              <h3 class="price-title">Negocio (Equipo)</h3>
+              <div class="price-block">
+                <span class="price-now">$2,999 MXN</span>
+              </div>
+              <div class="price-badges">
+                <span
+                  class="badge-offer"
+                  style="background: var(--action, #0ea5e9); color: #fff"
+                  >Más Popular</span
+                >
+              </div>
+
+              <ul class="includes">
+                <li>✅ Hasta 5 profesionales configurables</li>
+                <li>✅ Agendas individuales y unificadas</li>
+                <li>✅ Control de nombres y equipo desde Google Sheets</li>
+                <li>✅ Instalación, vinculación y capacitación guiada</li>
+                <li>✅ Cero mensualidades ni cobros por uso</li>
+              </ul>
+
+              <a
+                href="https://wa.me/5213312892022?text=Hola%2C%20quiero%20adquirir%20GlowControl%20Plan%20Negocio."
+                target="_blank"
+                rel="noopener"
+                class="btn btn-primary btn-lg btn-block"
+                data-cta="precio-neg"
+              >
+                Elegir Plan Negocio
+              </a>
+              <p class="price-note">
+                Sin compromiso · Resolvemos tus dudas por WhatsApp.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. FAQ -->
+      <section class="section faq-section" id="faq">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Preguntas frecuentes</span>
+            <h2>Antes de decidir, lo que casi todos preguntan</h2>
+          </div>
+
+          <div class="faq reveal">
+            <details name="faq">
+              <summary>¿Es difícil de configurar?</summary>
+              <p>
+                No. Administras todo desde Google Sheets: servicios, precios,
+                descuentos y profesionales. Los cambios se reflejan en tu
+                página.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Se va a ver igual que otras páginas?</summary>
+              <p>
+                No. Combinas 12 paletas de color (claro u oscuro) con 12 diseños
+                de tarjeta, además de tu nombre y tus servicios. Pruébalo
+                arriba, en el personalizador.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Y si alguien aparta una cita y no la confirma?</summary>
+              <p>
+                El horario se aparta unos minutos. Si el cliente no lo confirma
+                desde su correo, se libera solo y otra persona puede tomarlo.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Puedo atender yo solo o con equipo?</summary>
+              <p>
+                Ambos. Si atiendes solo, la página no pregunta con quién
+                agendar. Si son dos o más, el cliente elige o deja “cualquiera
+                disponible”.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Mis clientes necesitan descargar una app?</summary>
+              <p>
+                No. Reservan desde el navegador de su celular o computadora.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Cómo empiezo?</summary>
+              <p>
+                Prueba la demo y, cuando te convenza, solicita la activación de
+                tu página con tus servicios, precios y colores.
+              </p>
+            </details>
+          </div>
+
+          <div class="faq-wa reveal">
+            <div>
+              <strong>¿No encontraste tu respuesta?</strong>
+              <span
+                >Cuéntanos de tu negocio y te respondemos por WhatsApp.</span
+              >
+            </div>
+            <a
+              href="https://wa.me/5213312892022"
+              data-wa
+              data-msg="Hola, tengo una pregunta sobre GlowControl."
+              class="btn btn-wa"
+              ><svg class="wa-ico" aria-hidden="true">
+                <use href="#wa-ico" />
+              </svg>
+              Hacer una pregunta</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Cierre -->
+      <section class="closing" id="cierre">
+        <div class="container">
+          <div class="closing-box reveal">
+            <h2>Tu próxima cita puede agendarse sola</h2>
+            <p>
+              Pruébalo como si fueras tu cliente y luego personalízalo como si
+              fuera tu negocio.
+            </p>
+            <div class="closing-actions">
+              <a href="Demo/demo.html" data-demo class="btn btn-white btn-lg"
+                >Entrar a la demo <span aria-hidden="true">→</span></a
+              >
+              <a
+                href="https://wa.me/5213312892022"
+                data-wa
+                data-msg="Hola, vi la demo de GlowControl y quiero activar mi página de citas."
+                class="btn btn-wa btn-lg"
+                ><svg class="wa-ico" aria-hidden="true">
+                  <use href="#wa-ico" />
+                </svg>
+                Quiero mi página</a
+              >
+            </div>
+            <p class="microcopy microcopy-light">
+              Sin registro · 2 minutos para probarlo
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span class="logo-text">GlowControl</span>
+        <nav class="footer-links" aria-label="Pie de página">
+          <a href="#funciones">Funciones</a>
+          <a href="#personalizar">Personalizar</a>
+          <a href="#como-reservan">Cómo reservan</a>
+          <a href="#precios">Precios</a>
+          <a href="#faq">Preguntas</a>
+          <a href="https://wa.me/5213312892022" data-wa>WhatsApp</a>
+        </nav>
+        <p>&copy; 2026 GlowControl. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Botón fijo de WhatsApp (siempre visible, abajo a la derecha) -->
+    <a
+      href="https://wa.me/5213312892022"
+      data-wa
+      data-msg="Hola, vi la página de GlowControl y quiero más información."
+      class="wa-fab"
+      aria-label="Escríbenos por WhatsApp"
+      title="Escríbenos por WhatsApp"
+    >
+      <svg class="wa-ico" aria-hidden="true"><use href="#wa-ico" /></svg>
+      <span class="wa-fab-label">Escríbenos</span>
+    </a>
+
+    <!-- CTA fijo en celular -->
+    <a href="Demo/demo.html" data-demo class="sticky-cta" id="sticky-cta">
+      Probar la demo en vivo <span aria-hidden="true">→</span>
+    </a>
+
+    <script src="script.js"></script>
+  </body>
+</html>
