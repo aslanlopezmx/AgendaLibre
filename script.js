@@ -411,21 +411,105 @@ function pintarTema(el, tema, modo) {
   el.dataset.modo = modo;
 }
 
+/* Hero: un servicio de ejemplo por cada tipo de negocio (el tema cambia con cada uno) */
+const SERVICIOS_HERO = [
+  {
+    tema: "boutique",
+    emoji: "💆",
+    categoria: "Masajes",
+    nombre: "Masaje Relajante Sueco",
+    descripcion: "Masaje de presión suave a moderada",
+    duracion: "⏱ 60 min",
+    precioAnterior: "$650",
+    precio: "$520 MXN",
+  },
+  {
+    tema: "editorial",
+    emoji: "💈",
+    categoria: "Barbería",
+    nombre: "Corte y Barba Clásico",
+    descripcion: "Corte a tijera o máquina con perfilado de barba",
+    duracion: "⏱ 45 min",
+    precioAnterior: "$300",
+    precio: "$240 MXN",
+  },
+  {
+    tema: "coquette",
+    emoji: "💅",
+    categoria: "Uñas",
+    nombre: "Manicure con Gel",
+    descripcion: "Limado, cutícula y esmaltado semipermanente",
+    duracion: "⏱ 1 h 15 min",
+    precioAnterior: "$350",
+    precio: "$280 MXN",
+  },
+  {
+    tema: "lavanda",
+    emoji: "👁️",
+    categoria: "Pestañas",
+    nombre: "Extensiones de Pestañas",
+    descripcion: "Efecto natural pelo a pelo con acabado ligero",
+    duracion: "⏱ 2 h",
+    precioAnterior: "$800",
+    precio: "$640 MXN",
+  },
+  {
+    tema: "menta",
+    emoji: "✏️",
+    categoria: "Cejas",
+    nombre: "Diseño y Perfilado de Cejas",
+    descripcion: "Diseño a la medida de tu rostro con depilación",
+    duracion: "⏱ 30 min",
+    precioAnterior: "$250",
+    precio: "$200 MXN",
+  },
+  {
+    tema: "oceano",
+    emoji: "💇",
+    categoria: "Cabello",
+    nombre: "Corte y Peinado",
+    descripcion: "Corte personalizado con lavado y peinado",
+    duracion: "⏱ 1 h",
+    precioAnterior: "$450",
+    precio: "$360 MXN",
+  },
+];
+
+function pintarServicioHero(el, d) {
+  if (!el || !d) return;
+  const poner = (sel, txt) => {
+    const nodo = el.querySelector(sel);
+    if (nodo) nodo.textContent = txt;
+  };
+  poner(".svc-emoji", d.emoji);
+  poner(".svc-cat", d.categoria);
+  poner(".svc-body h4", d.nombre);
+  poner(".svc-body p", d.descripcion);
+  poner(".svc-dur", d.duracion);
+  poner(".svc-old s", d.precioAnterior);
+  poner(".svc-price b", d.precio);
+}
+
 function iniciarHero() {
   const el = document.getElementById("hero-themed");
   if (!el) return;
 
-  const secuencia = ["boutique", "lavanda", "oceano"].map((id) =>
-    TEMAS.find((t) => t.id === id),
-  );
+  const temaDe = (s) => TEMAS.find((t) => t.id === s.tema);
   let i = 0;
-  pintarTema(el, secuencia[0], "claro");
+  pintarTema(el, temaDe(SERVICIOS_HERO[0]), "claro");
+  pintarServicioHero(el, SERVICIOS_HERO[0]);
 
   if (reducirMovimiento) return;
   setInterval(() => {
     if (document.hidden) return;
-    i = (i + 1) % secuencia.length;
-    pintarTema(el, secuencia[i], "claro");
+    i = (i + 1) % SERVICIOS_HERO.length;
+    const servicio = SERVICIOS_HERO[i];
+    el.classList.add("swapping");
+    pintarTema(el, temaDe(servicio), "claro");
+    setTimeout(() => {
+      pintarServicioHero(el, servicio);
+      el.classList.remove("swapping");
+    }, 250);
   }, 3500);
 }
 

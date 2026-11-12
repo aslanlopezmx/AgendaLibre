@@ -2595,3 +2595,12 @@ h3 {
         transform: none;
     }
 }
+
+/* Hero: fundido del servicio al cambiar de tema */
+#hero-themed :is(.svc-emoji, .svc-cat, .svc-body, .svc-price) {
+    transition: opacity 0.25s ease;
+}
+
+#hero-themed.swapping :is(.svc-emoji, .svc-cat, .svc-body, .svc-price) {
+    opacity: 0;
+}
