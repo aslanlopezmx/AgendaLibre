@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GlowControl · Landing (index)
+   AgendaLibre · Landing (index)
    Mobile-first. Tokens → base → layout → secciones → componentes del tema
    ========================================================================== */
 
@@ -1539,7 +1539,7 @@ h3 {
     }
 
     .compare-table td.us::before {
-        content: 'GlowControl';
+        content: 'AgendaLibre';
     }
 
     .compare-table tbody tr:last-child .them,

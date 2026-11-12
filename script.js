@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GlowControl · Landing (index)
+   AgendaLibre · Landing (index)
    Todo es opcional: si el JS falla, la página sigue siendo legible.
    ========================================================================== */
 
@@ -7,7 +7,7 @@ const CONFIG = {
   DEMO_URL: "Demo/demo.html",
   WHATSAPP: "5213312892022",
   WHATSAPP_MENSAJE:
-    "Hola, vi la página de GlowControl y quiero más información.",
+    "Hola, vi la página de AgendaLibre y quiero más información.",
 };
 
 const reducirMovimiento = window.matchMedia(
