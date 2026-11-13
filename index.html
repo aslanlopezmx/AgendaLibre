@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -178,46 +178,154 @@
             </p>
           </div>
 
-          <div class="hero-visual" aria-hidden="false">
-            <div class="chip chip-ok chip-a">
-              <span class="chip-ico">✓</span> Cita confirmada
-            </div>
-            <div class="chip chip-pct chip-b">-20%</div>
-
-            <div class="phone">
-              <div class="phone-notch" aria-hidden="true"></div>
+          <div class="hero-visual" id="hero-visual">
+            <div class="desk" id="desk">
+              <!-- Laptop con calendario semanal -->
               <div
-                class="phone-screen themed"
-                id="hero-themed"
-                data-card="framed"
-                role="img"
-                aria-label="Celular mostrando el catálogo de servicios de un negocio con precio y botón Agendar cita"
+                class="desk-item laptop"
+                style="--i: 1; --d: 0.5"
+                aria-hidden="true"
               >
-                <div class="ph-top">
-                  <strong class="ph-brand">Mi Negocio</strong>
-                  <span class="ph-pill">Reservar cita</span>
+                <div class="lp-screen">
+                  <div class="lp-display">
+                    <div class="cal-bar">
+                      <i class="cal-dot"></i><b>Agenda de la semana</b>
+                      <span class="cal-btn">+ Cita</span>
+                    </div>
+                    <div class="cal-head">
+                      <span></span><span>Lun</span><span>Mar</span
+                      ><span>Mié</span><span>Jue</span><span>Vie</span>
+                    </div>
+                    <div class="cal-body">
+                      <span class="cal-hours"
+                        ><i>10</i><i>12</i><i>2</i><i>4</i></span
+                      >
+                      <div class="cal-col">
+                        <i class="ev ev-b" style="top: 6%; height: 28%"></i
+                        ><i class="ev ev-g" style="top: 48%; height: 22%"></i>
+                      </div>
+                      <div class="cal-col">
+                        <i class="ev ev-a" style="top: 22%; height: 30%"></i
+                        ><i class="ev ev-b" style="top: 66%; height: 24%"></i>
+                      </div>
+                      <div class="cal-col">
+                        <i class="ev ev-g" style="top: 8%; height: 20%"></i
+                        ><i class="ev ev-b" style="top: 40%; height: 34%"></i>
+                      </div>
+                      <div class="cal-col">
+                        <i class="ev ev-a" style="top: 52%; height: 26%"></i
+                        ><i
+                          class="ev ev-ok ev-new"
+                          style="top: 14%; height: 24%"
+                        ></i>
+                      </div>
+                      <div class="cal-col">
+                        <i class="ev ev-b" style="top: 30%; height: 22%"></i
+                        ><i class="ev ev-g" style="top: 68%; height: 22%"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="ph-search">Buscar servicios…</div>
-
-                <article class="svc">
-                  <div class="svc-img">
-                    <span class="svc-emoji">💆</span>
-                    <span class="svc-cat">Masajes</span>
-                  </div>
-                  <div class="svc-body">
-                    <h4>Masaje Relajante Sueco</h4>
-                    <p>Masaje de presión suave a moderada</p>
-                    <span class="svc-dur">⏱ 60 min</span>
-                  </div>
-                  <div class="svc-foot">
-                    <span class="svc-price">
-                      <small class="svc-old"><s>$650</s></small>
-                      <b>$520 MXN</b>
-                    </span>
-                    <span class="svc-btn">Agendar cita</span>
-                  </div>
-                </article>
+                <div class="lp-hinge"></div>
+                <div class="lp-base">
+                  <div class="lp-keys"></div>
+                  <div class="lp-pad"></div>
+                </div>
               </div>
+
+              <!-- Nota adhesiva -->
+              <div
+                class="desk-item note"
+                style="--i: 3; --d: 0.9"
+                aria-hidden="true"
+              >
+                <span>Confirmar a Ana ✓</span>
+              </div>
+
+              <!-- Taza de café -->
+              <div
+                class="desk-item cup"
+                style="--i: 2; --d: 1.4"
+                aria-hidden="true"
+              >
+                <i class="cup-handle"></i>
+                <i class="cup-saucer"></i>
+                <i class="cup-body"><i class="cup-coffee"></i></i>
+                <i class="steam steam-1"></i>
+                <i class="steam steam-2"></i>
+              </div>
+
+              <!-- Agenda de papel -->
+              <div
+                class="desk-item planner"
+                style="--i: 2; --d: 0.9"
+                aria-hidden="true"
+              >
+                <div class="pl-page">
+                  <h4>Lunes 16</h4>
+                  <p><b>10:00</b> Corte · Ana</p>
+                  <p><b>11:30</b> Barba · Luis <em>✓</em></p>
+                  <p><b>13:00</b> Comida</p>
+                  <p>
+                    <mark><b>16:30</b> Masaje · Sofi</mark>
+                  </p>
+                  <p class="pl-dim"><b>18:00</b> ¿Libre?</p>
+                  <p class="pl-dim"><b>18:30</b> Chats…</p>
+                </div>
+                <div class="pl-rings"></div>
+                <i class="pl-ribbon"></i>
+              </div>
+
+              <!-- Pluma -->
+              <div
+                class="desk-item pen"
+                style="--i: 4; --d: 1.2"
+                aria-hidden="true"
+              ></div>
+
+              <!-- Celular (pantalla viva) -->
+              <div class="desk-item desk-phone" style="--i: 4; --d: 1.6">
+                <div class="phone">
+                  <div class="phone-notch" aria-hidden="true"></div>
+                  <div
+                    class="phone-screen themed"
+                    id="hero-themed"
+                    data-card="framed"
+                    role="img"
+                    aria-label="Celular mostrando el catálogo de servicios de un negocio con precio y botón Agendar cita"
+                  >
+                    <div class="ph-top">
+                      <strong class="ph-brand">Mi Negocio</strong>
+                      <span class="ph-pill">Reservar cita</span>
+                    </div>
+                    <div class="ph-search">Buscar servicios…</div>
+
+                    <article class="svc">
+                      <div class="svc-img">
+                        <span class="svc-emoji">💆</span>
+                        <span class="svc-cat">Masajes</span>
+                      </div>
+                      <div class="svc-body">
+                        <h4>Masaje Relajante Sueco</h4>
+                        <p>Masaje de presión suave a moderada</p>
+                        <span class="svc-dur">⏱ 60 min</span>
+                      </div>
+                      <div class="svc-foot">
+                        <span class="svc-price">
+                          <small class="svc-old"><s>$650</s></small>
+                          <b>$520 MXN</b>
+                        </span>
+                        <span class="svc-btn">Agendar cita</span>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chip chip-ok chip-a" aria-hidden="true">
+                <span class="chip-ico">✓</span> Cita confirmada
+              </div>
+              <div class="chip chip-pct chip-b" aria-hidden="true">-20%</div>
             </div>
           </div>
         </div>
@@ -677,6 +785,118 @@
         </div>
       </section>
 
+      <!-- 7b. Recomendaciones de clientes
+           ============================================================
+           Esta sección está OCULTA (atributo hidden) a propósito.
+           1) Reemplaza las 6 tarjetas con recomendaciones REALES de tus
+              clientes (con su permiso).
+           2) Borra el atributo  hidden  de la etiqueta <section>.
+           3) Si quieres, agrega  <a href="#testimonios">Clientes</a>  al
+              menú (.nav-links) y al pie de página.
+           ============================================================ -->
+      <section class="section testimonios" id="testimonios" hidden>
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Recomendaciones</span>
+            <h2>Lo que dicen quienes ya agendan con AgendaLibre</h2>
+            <p>Negocios reales que dejaron de coordinar citas por chat.</p>
+          </div>
+
+          <div class="testi-grid">
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 1, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 1</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 2, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 2</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 3, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 3</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 4, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 4</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 5, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 5</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="testi reveal">
+              <blockquote>
+                <p>
+                  “Escribe aquí la recomendación real del cliente 6, tal como te
+                  la dio.”
+                </p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-avatar" aria-hidden="true">N</span>
+                <span class="testi-who">
+                  <strong>Nombre del cliente 6</strong>
+                  <span>Tipo de negocio · Ciudad</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <!-- 8. Comparativa y Precios -->
       <section class="section pricing-section" id="precios">
         <div class="container">
@@ -731,6 +951,12 @@
                   <td class="us">Hasta 5 profesionales independientes</td>
                 </tr>
                 <tr>
+                  <th scope="row">Formas de pago</th>
+                  <td class="them">Cargo mensual recurrente</td>
+                  <td class="us">Tarjeta de crédito a 3 y 6 MSI</td>
+                  <td class="us">Tarjeta de crédito a 3 y 6 MSI</td>
+                </tr>
+                <tr>
                   <th scope="row">Control y administración</th>
                   <td class="them">Plataforma cerrada de terceros</td>
                   <td class="us">Google Sheets / Google Calendar</td>
@@ -760,8 +986,13 @@
               <div class="price-block">
                 <span class="price-now">$1,499 MXN</span>
               </div>
+              <p class="price-msi">
+                o <strong>3 MSI de $499.67</strong> ·
+                <strong>6 MSI de $249.83</strong>
+              </p>
               <div class="price-badges">
                 <span class="badge-offer">Pago Único</span>
+                <span class="badge-msi">💳 3 y 6 meses sin intereses</span>
               </div>
 
               <ul class="includes">
@@ -798,12 +1029,17 @@
               <div class="price-block">
                 <span class="price-now">$2,999 MXN</span>
               </div>
+              <p class="price-msi">
+                o <strong>3 MSI de $999.67</strong> ·
+                <strong>6 MSI de $499.83</strong>
+              </p>
               <div class="price-badges">
                 <span
                   class="badge-offer"
                   style="background: var(--action, #0ea5e9); color: #fff"
                   >Más Popular</span
                 >
+                <span class="badge-msi">💳 3 y 6 meses sin intereses</span>
               </div>
 
               <ul class="includes">
@@ -828,6 +1064,14 @@
               </p>
             </div>
           </div>
+
+          <p class="msi-strip reveal">
+            <span aria-hidden="true">💳</span>
+            <span>
+              Paga con <strong>tarjeta de crédito</strong> a
+              <strong>3 o 6 meses sin intereses</strong>.
+            </span>
+          </p>
         </div>
       </section>
 
@@ -875,6 +1119,14 @@
               <summary>¿Mis clientes necesitan descargar una app?</summary>
               <p>
                 No. Reservan desde el navegador de su celular o computadora.
+              </p>
+            </details>
+            <details name="faq">
+              <summary>¿Puedo pagar a meses?</summary>
+              <p>
+                Sí. Puedes pagar con tarjeta de crédito a 3 o 6 meses sin
+                intereses. Es un solo pago dividido por tu banco, sin
+                mensualidades de nuestra parte.
               </p>
             </details>
             <details name="faq">

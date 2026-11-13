@@ -513,6 +513,55 @@ function iniciarHero() {
   }, 3500);
 }
 
+/* Hero: escritorio visto desde arriba (escala + parallax suave) */
+function iniciarEscritorio() {
+  const cont = document.getElementById("hero-visual");
+  const desk = document.getElementById("desk");
+  if (!cont || !desk) return;
+
+  const ANCHO = 720;
+  const ALTO = 780;
+  const esDesktop = window.matchMedia("(min-width: 900px)");
+
+  const ajustar = () => {
+    const r = cont.getBoundingClientRect();
+    let escala;
+    let x = 0;
+    if (esDesktop.matches) {
+      // La escena se alinea a la izquierda y puede salirse un poco por la derecha
+      const sobrante = Math.min(110, Math.max(0, window.innerWidth - r.right));
+      escala = Math.min(1, Math.max(0.66, (r.width + sobrante) / ANCHO));
+    } else {
+      // En móvil se centra y se recorta por los lados
+      escala = Math.min(0.9, Math.max(0.56, r.width / 520));
+      x = (r.width - ANCHO * escala) / 2;
+    }
+    desk.style.transform = `translateX(${x}px) scale(${escala})`;
+    cont.style.height = `${Math.round(ALTO * escala)}px`;
+  };
+
+  ajustar();
+  window.addEventListener("resize", ajustar);
+  window.addEventListener("load", ajustar);
+
+  // Parallax con el mouse (solo desktop y sin "reducir movimiento")
+  if (reducirMovimiento) return;
+  const hero = document.getElementById("top");
+  if (!hero || !window.matchMedia("(hover: hover)").matches) return;
+
+  hero.addEventListener("mousemove", (e) => {
+    if (!esDesktop.matches) return;
+    const nx = e.clientX / window.innerWidth - 0.5;
+    const ny = e.clientY / window.innerHeight - 0.5;
+    desk.style.setProperty("--mx", `${(nx * -14).toFixed(1)}px`);
+    desk.style.setProperty("--my", `${(ny * -14).toFixed(1)}px`);
+  });
+  hero.addEventListener("mouseleave", () => {
+    desk.style.setProperty("--mx", "0px");
+    desk.style.setProperty("--my", "0px");
+  });
+}
+
 const estadoPz = { tema: "boutique", modo: "claro", card: "framed" };
 
 function aplicarPz() {
@@ -692,7 +741,7 @@ function iniciarReveal() {
   }
 
   document
-    .querySelectorAll(".benefits-grid, .bento, .steps, .vs")
+    .querySelectorAll(".benefits-grid, .bento, .steps, .vs, .testi-grid")
     .forEach((grupo) => {
       [...grupo.querySelectorAll(":scope > .reveal")].forEach((el, i) => {
         el.style.transitionDelay = i * 80 + "ms";
@@ -761,6 +810,7 @@ function iniciarCtaFijo() {
 document.addEventListener("DOMContentLoaded", () => {
   configurarEnlaces();
   iniciarHero();
+  iniciarEscritorio();
   iniciarPersonalizador();
   iniciarBloqueSheets();
   iniciarNavbar();
