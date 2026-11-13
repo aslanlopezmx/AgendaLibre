@@ -3330,6 +3330,7 @@ h3 {
 }
 
 @media (min-width: 900px) {
+
     /* sin franjas de luz diagonales: solo degradado para que se lea el texto */
     .hero::after {
         background: linear-gradient(90deg,
